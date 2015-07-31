@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/jsp/layout/">
+	<excludes>
+		<pattern>/static/*</pattern>
+	</excludes>
+	
+	 <!-- 用于页面嵌套，保证decorateor中的js先于<decorator:head />中的js -->
+	<decorator name="header" page="header.jsp"/>
+	
+	<!-- 没有头尾可用于弹出框jsp -->
+ 	<decorator name="pop" page="pop.jsp" /> 	
+ 	
+	<decorator name="default" page="default.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+</decorators>
