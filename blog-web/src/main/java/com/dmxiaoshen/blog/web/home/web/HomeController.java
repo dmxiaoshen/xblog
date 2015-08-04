@@ -12,5 +12,10 @@ public class HomeController {
 	public String index(ModelMap model){
 		return "/home/index";
 	}
+	
+	@RequestMapping("/article")
+	public String article(ModelMap model){
+		return "/home/article";
+	}
 
 }
