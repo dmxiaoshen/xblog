@@ -10,6 +10,8 @@
 	<!-- 没有头尾可用于弹出框jsp -->
  	<decorator name="pop" page="pop.jsp" /> 	
  	
+ 	<decorator name="admin" page="admin.jsp" /> 
+ 	
 	<decorator name="default" page="default.jsp">
 		<pattern>/*</pattern>
 	</decorator>
