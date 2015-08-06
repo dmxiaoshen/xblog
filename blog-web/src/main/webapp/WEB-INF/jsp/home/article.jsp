@@ -35,6 +35,35 @@ $(function(){
 		var id = $(this).attr("data-id");
 		window.location.href="${ctx}/article/add?id="+id;
 	});
+	
+
+    var options = {  
+        currentPage: 3,  
+        totalPages: 10,  
+        size:"large",  
+        alignment:"center",  
+        itemTexts: function (type, page, current) {  
+            switch (type) {  
+                case "first":  
+                    return "第一页";  
+                case "prev":  
+                    return "<";  
+                case "next":  
+                    return ">";  
+                case "last":  
+                    return "最后页";  
+                case "page":  
+                    return  page;  
+            }                 
+        },  
+        onPageClicked: function (e, originalEvent, type, page) {  
+            alert("type:" + type + ",Page:" + page);  
+        }  
+    }  
+
+
+    $('#pager').bootstrapPaginator(options);  
+ 
 });
 </script>
 </head>
@@ -58,7 +87,11 @@ $(function(){
     </div>
     <hr class="feature-divider" />
 </c:forEach>
- 
+ <div class="row">
+ <div class="col-md-12">
+ 	<div id="pager"></div>
+ </div>
+ </div>
 </div>
 </body>
 </html>
