@@ -1,6 +1,5 @@
 package com.dmxiaoshen.blog.base.entity;
 
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -10,15 +9,24 @@ public abstract class BaseEntity extends AbstractEntity {
     /** */
     private static final long serialVersionUID = 4396614902223960532L;
 
-    protected Long id;
+    protected String id;
+	private String delFlag;
+	
 
-    @Id
-    @GeneratedValue
-    public Long getId() {
+    public String getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(String delFlag) {
+		this.delFlag = delFlag;
+	}
+
+	@Id 
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

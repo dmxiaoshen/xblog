@@ -20,7 +20,7 @@ public class HomeController {
 	
 	@RequestMapping("/article")
 	public String article(ModelMap model){
-		model.put("articleList", articleService.findList());
+		//model.put("articleList", articleService.findList());
 		return "/home/article";
 	}
 

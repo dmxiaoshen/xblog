@@ -45,10 +45,15 @@ $("textarea[data-provide='markdown']").markdown({
 
 
     $(function(){
+    	$(".cateitem").click(function(){
+    		var label = $(this).html();
+    		var id = $(this).attr("data-bind");
+    		$("#category").val(label);
+    		$("#category").attr("data-value",id);
+    	});
         $("#save").click(function(){
-            var title = $("#title").val();
-            var mdText = $("textarea[name='content']").val();       
-            var htmlText = marked(mdText);
+            var mdContent = $("textarea[name='content']").val();       
+            var htmlContent = marked(mdContent);
             
             $.ajax({
             	type:'post',
@@ -56,9 +61,13 @@ $("textarea[data-provide='markdown']").markdown({
             	url:"${ctx}/article/save",
             	data:{
             		id:$("#id").val(),
-            		title:title,
-            		mdText:mdText,
-            		htmlText:htmlText
+            		title:$("#title").val(),
+            		date:$("#date").val(),
+            		'category.id':$("#category").attr("data-value"),
+            		tags:$("#tags").val(),
+            		mdFileName:$("#mdFileName").val(),
+            		mdContent:mdContent,
+            		htmlContent:htmlContent
             	},
             	success:function(data){
             		if(data=="success"){
@@ -85,17 +94,45 @@ $("textarea[data-provide='markdown']").markdown({
 	</p>
 	<div class="row">
 		<div class="col-md-12">
-			<p>
-			<input type="hidden" value="${article.id }" id="id"/>
-			<label>标题</label><input type="text" name="title" id="title" value="${article.title }"/>
-			</p>
-			<div>
-			<p>
-			 <label>正文</label>
-			</p>
-			<p>
-			 <textarea  id="content" name="content" data-provide="markdown" rows="10" placeholder="这里输入内容,支持Markdown语法.">${article.mdText}</textarea>
-			</p>
+			<input type="hidden" value="${article.id }" id="id"/>	
+			<div class="row">
+				<div class="col-md-6">
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon" id="basic-addon1">标题</span>
+					  <input type="text" name="title"  id="title" value="${article.title }" class="form-control" placeholder="" aria-describedby="basic-addon1" />
+					</div>
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon" id="basic-addon1">日期</span>
+					  <input type="text" name="date"  id="date"  class="form-control Wdate" onfocus="WdatePicker({lang:'zh_cn'})" aria-describedby="basic-addon1" />
+					</div>
+					
+					<div class="input-group input-group-lg">
+					<input name="category" id="category" type="text" value="${defaultCate.label }" data-value="${defaultCate.id}" class="form-control" aria-label="..." />
+				      <div class="input-group-btn">
+				        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">分类<span class="caret"></span></button>
+				        <ul class="dropdown-menu dropdown-menu-right">
+				         <c:forEach items="${categoryList }" var="item">
+				         	<li><a href="javascript:void(0);" class="cateitem" data-bind="${item.id }">${item.label}</a></li>
+				         </c:forEach>
+				        </ul>
+				      </div><!-- /btn-group -->
+      
+    				</div><!-- /input-group -->
+    				
+    				<div class="input-group input-group-lg">
+					  <span class="input-group-addon" id="basic-addon1">标签</span>
+					  <input type="text" name="tags"  id="tags" value="${article.tags }" class="form-control" placeholder="多个标签请用,号隔开" aria-describedby="basic-addon1" />
+					</div>
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon" id="basic-addon1">文件名</span>
+					  <input type="text" name="mdFileName"  id="mdFileName" value="${article.mdFileName }" class="form-control" placeholder="用以生产.md文件时所用的文件名，建议英文" aria-describedby="basic-addon1" />
+					</div>
+				</div>
+			</div>
+									
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon" id="basic-addon1">正文</span>	  
+				<textarea  id="content" name="content" data-provide="markdown" rows="10" placeholder="这里输入内容,支持Markdown语法.">${article.mdText}</textarea>		
 			</div>
 			<p><button type="button" class="btn btn-lg btn-default" id="save">保存</button></p>
 		</div>

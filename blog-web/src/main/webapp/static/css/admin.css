@@ -45,3 +45,11 @@ body {
 .main .page-header {
 	margin-top: 0;
 }
+
+.pagination li a, .pagination li span{
+	font-size:25px;
+}
+
+.pagination li a{
+        	cursor:pointer;
+        }

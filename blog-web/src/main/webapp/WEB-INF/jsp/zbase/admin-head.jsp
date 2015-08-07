@@ -15,5 +15,6 @@
 <script type="text/javascript" src="${ctx}/static/js/bootstrap/js/bootstrap.min.js"></script>   
 <script type="text/javascript" src="${ctx}/static/js/back-to-top/js/back-to-top.js"></script>   
 <script type="text/javascript" src="${ctx}/static/js/bootstrap-paginator/js/bootstrap-paginator.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/datePicker/WdatePicker.js" charset="utf-8"></script>
 </head>
 </html>

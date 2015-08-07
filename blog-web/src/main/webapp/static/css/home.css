@@ -60,6 +60,13 @@
         .feature-heading .text-muted {
             font-size: 28px;
         }
+        
+        .pagination li a{
+        	cursor:pointer;
+        }
+        .pagination li a, .pagination li span{
+			font-size:25px;
+		}
 
         /* 响应式布局 */
 

@@ -45,13 +45,13 @@ $(function(){
         itemTexts: function (type, page, current) {  
             switch (type) {  
                 case "first":  
-                    return "第一页";  
+                    return "首页";  
                 case "prev":  
-                    return "<";  
+                    return "上一页";  
                 case "next":  
-                    return ">";  
+                    return "下一页";  
                 case "last":  
-                    return "最后页";  
+                    return "尾页";  
                 case "page":  
                     return  page;  
             }                 
@@ -88,9 +88,12 @@ $(function(){
     <hr class="feature-divider" />
 </c:forEach>
  <div class="row">
- <div class="col-md-12">
- 	<div id="pager"></div>
+ <div class="col-md-3"></div>
+ <div class="col-md-6">
+ 	<div id="pager" class="pull-right">
+ 	</div>
  </div>
+ <div class="col-md-3"></div>
  </div>
 </div>
 </body>
