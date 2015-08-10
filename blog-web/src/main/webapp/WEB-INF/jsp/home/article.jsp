@@ -70,7 +70,9 @@ $(function(){
 <body>
 <!-- 主要内容 -->
 <div class="container blog-content">
-
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
 <c:forEach items="${articleList}" var="item">
 
 <div class="row" id="summary-container">
@@ -87,6 +89,9 @@ $(function(){
     </div>
     <hr class="feature-divider" />
 </c:forEach>
+</div>
+</div>
+<div class="col-md-1"></div>
  <div class="row">
  <div class="col-md-3"></div>
  <div class="col-md-6">

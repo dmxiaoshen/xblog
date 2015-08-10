@@ -71,14 +71,15 @@ $(function(){
 <!-- 主要内容 -->
 <div class="container blog-content">
 <div class="row" id="summary-container">
-        <div class="col-md-12">
+ <div class="col-md-1"></div>
+        <div class="col-md-10">
         <div id="header"><p class="title" data-id="${article.id}">${article.title }</p></div>
         <div id="content">
 				${article.htmlText}
         </div>
            
         </div>    
-
+<div class="col-md-1"></div>
 </div>
 </div>
 </body>

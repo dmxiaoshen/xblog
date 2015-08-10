@@ -37,7 +37,16 @@ public class ArticleServiceImpl extends ServiceSupport implements ArticleService
 	}
 	
 	private void update(Article article){
-		
+		Article old = get(article.getId());
+		old.setTitle(article.getTitle());
+		old.setDate(article.getDate());
+		old.setCategory(article.getCategory());
+		processTags(article.getTags(), old.getTags());
+		old.setTags(article.getTags());
+		old.setMdFileName(article.getMdFileName());
+		old.setMdContent(article.getMdContent());
+		old.setHtmlContent(article.getHtmlContent());
+		old.setUpdateTime(new Date());
 	}
 	
 	private void save(Article article){
@@ -162,7 +171,7 @@ public class ArticleServiceImpl extends ServiceSupport implements ArticleService
 			if(isFull){
 				sb.append(htmlContent.substring(htmlContent.indexOf("--&gt;")+6, htmlContent.length()));
 			}else{
-				sb.append("<a href='${ctx}/article/view?id="+article.getId()+"'>Read More >></a></p>");
+				sb.append("<a href='../article/view?id="+article.getId()+"'>Read More >></a></p>");
 			}
 			
 			article.setHtmlText(sb.toString());
