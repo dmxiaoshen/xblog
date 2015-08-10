@@ -15,11 +15,11 @@ public interface BaseHibernateDao {
     
     void delete(Object object);
     
-    void delete(Class<?> clzss,Long id);
+    void delete(Class<?> clzss,Object id);
     
-    <T> T load(Class<T> clzss,Long id);
+    <T> T load(Class<T> clzss,Object id);
     
-    <T> T get(Class<T> clzss,Long id);
+    <T> T get(Class<T> clzss,Object id);
     
     <T> List<T> findList(String hql,Map<String,Object> paramMap);
     

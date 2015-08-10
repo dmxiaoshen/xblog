@@ -51,7 +51,7 @@ public class BaseHibernateDaoImpl implements BaseHibernateDao {
     }
 
     @Override
-    public void delete(Class<?> clzss, Long id) {
+    public void delete(Class<?> clzss, Object id) {
         Assert.notNull(id, "delete id can not be null");
         getSession().delete((load(clzss, id)));
         
@@ -60,17 +60,26 @@ public class BaseHibernateDaoImpl implements BaseHibernateDao {
     /** 代理来延迟加载*/
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T load(Class<T> clzss, Long id) {
-        Assert.notNull(id, "load id can not be null");       
-        return (T) getSession().load(clzss, id);
+    public <T> T load(Class<T> clzss, Object id) {
+        Assert.notNull(id, "load id can not be null");  
+        if(id instanceof Long){
+        	return (T) getSession().load(clzss, Long.valueOf(id.toString()));
+        }else{
+        	return (T) getSession().load(clzss, id.toString());
+        }
+        
     }
 
     /** 不用代理 真实数据*/
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T get(Class<T> clzss, Long id) {
+    public <T> T get(Class<T> clzss, Object id) {
         Assert.notNull(id, "get id can not be null");      
-        return (T) getSession().get(clzss, id);
+        if(id instanceof Long){
+        	return (T) getSession().get(clzss, Long.valueOf(id.toString()));
+        }else{
+        	return (T) getSession().get(clzss, id.toString());
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -27,6 +28,16 @@ public class Article extends BaseEntity {
 	private String mdFileName;
 	private String mdContent;
 	private String htmlContent;
+	private String htmlText;
+
+	@Transient
+	public String getHtmlText() {
+		return htmlText;
+	}
+
+	public void setHtmlText(String htmlText) {
+		this.htmlText = htmlText;
+	}
 
 	public String getTitle() {
 		return title;
