@@ -103,7 +103,7 @@ $("textarea[data-provide='markdown']").markdown({
 					</div>
 					<div class="input-group input-group-lg">
 					  <span class="input-group-addon" id="basic-addon1">日期</span>
-					  <input type="text" name="date"  id="date"  class="form-control Wdate" onfocus="WdatePicker({lang:'zh_cn'})" aria-describedby="basic-addon1" />
+					  <input type="text" name="date"  id="date"  value='<fmt:formatDate value="${article.date }" pattern="yyyy-MM-dd" />' class="form-control Wdate" onfocus="WdatePicker({lang:'zh_cn'})" aria-describedby="basic-addon1" />
 					</div>
 					
 					<div class="input-group input-group-lg">
@@ -132,7 +132,7 @@ $("textarea[data-provide='markdown']").markdown({
 									
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon" id="basic-addon1">正文</span>	  
-				<textarea  id="content" name="content" data-provide="markdown" rows="10" placeholder="这里输入内容,支持Markdown语法.">${article.mdText}</textarea>		
+				<textarea  id="content" name="content" data-provide="markdown" rows="10" placeholder="这里输入内容,支持Markdown语法.">${article.mdContent}</textarea>		
 			</div>
 			<p><button type="button" class="btn btn-lg btn-default" id="save">保存</button></p>
 		</div>

@@ -31,34 +31,33 @@ public class ArticleController {
 		return "/article/index";
 	}
 	
+	@RequestMapping(value = "/view")
+	public String articleView(ModelMap model,String id) {
+		if(StringUtils.isNotBlank(id)){
+			Article article = articleService.get(id.trim());
+			model.put("article",article );
+		}
+		return "/article/view";
+	}
+	
 	@RequestMapping(value = "/add")
 	public String addPage(ModelMap model,String id) {
-		if(StringUtils.isNotBlank(id)){
-			//model.put("article", articleService.get(Long.valueOf(id)));
-		}
 		List<Dict> categoryList = dictService.findByType(DictConstants.CATEGORY);
 		model.put("categoryList", categoryList);
 		model.put("defaultCate", categoryList.get(0));
+		if(StringUtils.isNotBlank(id)){
+			Article article = articleService.get(id.trim());
+			model.put("article",article );
+			model.put("defaultCate", article.getCategory());
+		}
+		
 		return "/article/add";
 	}
 	
 	@RequestMapping(value="/save")
 	@ResponseBody
 	public String save(Article article){
-		//articleService.save(article);
-		String html = article.getHtmlContent();
-		//logger.debug(""+html.contains("<p>&lt;!--more--&gt;</p>"));
-		int start = html.indexOf("&lt;");
-		int end = html.indexOf("&gt;");
-		StringBuilder sb = new StringBuilder();
-		String s1 = html.substring(0,start);
-		String s2 = html.substring(end+4, html.length());
-		sb.append(html.substring(0, start)).append(html.substring(end, html.length()));
-		String kkk = sb.toString();
-		logger.debug(start+"-"+end);
-		html.replaceAll("&lt;","");
-		logger.debug(html);
-		logger.debug(kkk);
+		articleService.saveOrUpdate(article);
 		return "success";
 	}
 }
