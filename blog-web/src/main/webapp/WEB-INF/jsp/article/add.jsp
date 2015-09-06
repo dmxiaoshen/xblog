@@ -28,6 +28,7 @@
 <script type="text/javascript" charset="utf-8" src="${ctx}/static/js/thinker-md/js/vendor/markdown/config.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctx}/static/js/thinker-md/js/vendor/markdown/emoji.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctx}/static/js/thinker-md/js/vendor/markdown/bootstrap-markdown.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx}/static/js/fileupload/ajaxfileupload.js"></script>
 <script type="text/javascript" charset="utf-8"
         src="${ctx}/static/js/thinker-md/js/vendor/markdown/locale/bootstrap-markdown.zh.js"></script>
 <script type="text/javascript">
@@ -45,6 +46,36 @@ $("textarea[data-provide='markdown']").markdown({
 
 
     $(function(){
+    	$("#upload").click(function(){
+    		$.ajaxFileUpload({
+    	        url: '${ctx}/article/fileUpload',
+    	        secureuri: false,
+    	        fileElementId: 'reFile',
+    	        dataType: 'json',
+    	        success: function(data,status) {
+    	        	if(data.msg=="success"){
+    	        		alert("文件上传成功");
+    	        		$("#remoteFile").val(data.fileName);
+    	        		var extention = data.fileName.substring(data.fileName.lastIndexOf(".") + 1).toLowerCase();
+    	        		var fileName = data.fileName.substring(0,data.fileName.lastIndexOf("."));
+    	        		$("#app").append("<a href='${ctx}/article/download/"+extention+"/"+fileName+"'>"+data.fileName+"-下载</a>")
+    	        	}else{
+    	        		alert(data.msg);
+    	        		$("#remoteFile").val('');
+    	        	}
+    	        	//alert(data);
+    	        	/* alert(data);
+    	        	 alert("文件上传成功");      	
+    	         if(data=="success"){
+    	        	 alert("文件上传成功");
+    	         } */
+    	        /*  if("${msg}"=="success"){
+    	        	 alert("上传文件成功");
+    	        	 $("#remoteFile").val("${fileName}");
+    	         } */
+    	        },
+    	      });
+    	});
     	$(".cateitem").click(function(){
     		var label = $(this).html();
     		var id = $(this).attr("data-bind");
@@ -83,7 +114,7 @@ $("textarea[data-provide='markdown']").markdown({
 <body>
 	<!--  <h1 class="page-header" >管理控制台</h1>  -->
 
-	<p style="margin-top:20px">
+	<!-- <p style="margin-top:20px">
 
 		<button type="button" class="btn btn-lg btn-default">操作1</button>
 		<button type="button" class="btn btn-lg btn-primary">操作2</button>
@@ -91,11 +122,11 @@ $("textarea[data-provide='markdown']").markdown({
 		<button type="button" class="btn btn-lg btn-info">操作4</button>
 		<button type="button" class="btn btn-lg btn-warning">操作5</button>
 		<button type="button" class="btn btn-lg btn-danger">操作6</button>
-	</p>
+	</p> -->
 	<div class="row">
 		<div class="col-md-12">
 			<input type="hidden" value="${article.id }" id="id"/>	
-			<div class="row">
+			<%-- <div class="row">
 				<div class="col-md-6">
 					<div class="input-group input-group-lg">
 					  <span class="input-group-addon" id="basic-addon1">标题</span>
@@ -128,16 +159,44 @@ $("textarea[data-provide='markdown']").markdown({
 					  <input type="text" name="mdFileName"  id="mdFileName" value="${article.mdFileName }" class="form-control" placeholder="用以生产.md文件时所用的文件名，建议英文" aria-describedby="basic-addon1" />
 					</div>
 				</div>
-			</div>
+			</div> --%>
 									
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon" id="basic-addon1">正文</span>	  
 				<textarea  id="content" name="content" data-provide="markdown" rows="10" placeholder="这里输入内容,支持Markdown语法.">${article.mdContent}</textarea>		
 			</div>
-			<p><button type="button" class="btn btn-lg btn-default" id="save">保存</button></p>
+			<input type="file" id="reFile" name="reFile" onchange="ajaxFileUpload(this)"/>
+		    <input type="button" value="上传" id="upload"/>
+			
+			<input type="hidden" id="remoteFile" name="remoteFile" />
+			
+			<!-- <p><button type="button" class="btn btn-lg btn-default" id="save">保存</button></p> -->
+			<div id="app"></div>
 		</div>
 		
 	</div>
-
+<script type="text/javascript">
+var i = 0;
+function ajaxFileUpload(fileObj) {
+  if (i < 3) {
+    var allowExtention = ".jpg,.bmp,.gif,.png,.pdf,.txt"; //允许上传文件的后缀名document.getElementById("hfAllowPicSuffix").value;
+    var extention = fileObj.value.substring(fileObj.value.lastIndexOf(".") + 1).toLowerCase();
+    var browserVersion = window.navigator.userAgent.toUpperCase();
+    if (allowExtention.indexOf(extention) > -1) {
+      
+    } else {
+      alert("仅支持" + allowExtention + "为后缀名的文件!");
+      fileObj.value = ""; //清空选中文件
+      if (browserVersion.indexOf("MSIE") > -1) {
+        fileObj.select();
+        document.selection.clear();
+      }
+      fileObj.outerHTML = fileObj.outerHTML;
+    }
+  } else {
+    alert("最多可上传三张图片");
+  }
+}
+</script>
 </body>
 </html>
