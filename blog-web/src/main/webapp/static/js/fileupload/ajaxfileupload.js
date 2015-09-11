@@ -4,17 +4,35 @@ jQuery.extend({
 		//create frame
 		var frameId = 'jUploadFrame' + id;
 		var iframeHtml = '<iframe id="' + frameId + '" name="' + frameId + '" style="position:absolute; top:-9999px; left:-9999px"';
-		if(window.ActiveXObject)
-		{
-			if(typeof uri== 'boolean'){
-				iframeHtml += ' src="' + 'javascript:false' + '"';
+		if(window.ActiveXObject) {  
 
-			}
-			else if(typeof uri== 'string'){
-				iframeHtml += ' src="' + uri + '"';
+			   if(jQuery.browser.version=="9.0" || jQuery.browser.version=="10.0"){  
 
-			}	
-		}
+			        var io = document.createElement('iframe');  
+
+			        io.id = frameId;  
+
+			        io.name = frameId;  
+
+			    }else if(jQuery.browser.version=="6.0" || jQuery.browser.version=="7.0" || jQuery.browser.version=="8.0"){  
+
+			        var io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');  
+
+			        if(typeof uri== 'boolean'){  
+
+			            io.src = 'javascript:false';  
+
+			        }  
+
+			        else if(typeof uri== 'string'){  
+
+			            io.src = uri;  
+
+			        }  
+
+			    }  
+
+			}  
 		iframeHtml += ' />';
 		jQuery(iframeHtml).appendTo(document.body);
 

@@ -47,13 +47,15 @@ $("textarea[data-provide='markdown']").markdown({
 
     $(function(){
     	$("#upload").click(function(){
+    		alert("上传");
     		$.ajaxFileUpload({
     	        url: '${ctx}/article/fileUpload',
     	        secureuri: false,
     	        fileElementId: 'reFile',
-    	        dataType: 'json',
+    	        dataType: 'text',
     	        success: function(data,status) {
-    	        	if(data.msg=="success"){
+    	        	alert(data);
+    	        	/* if(data.msg=="success"){
     	        		alert("文件上传成功");
     	        		$("#remoteFile").val(data.fileName);
     	        		var extention = data.fileName.substring(data.fileName.lastIndexOf(".") + 1).toLowerCase();
@@ -62,7 +64,7 @@ $("textarea[data-provide='markdown']").markdown({
     	        	}else{
     	        		alert(data.msg);
     	        		$("#remoteFile").val('');
-    	        	}
+    	        	} */
     	        	//alert(data);
     	        	/* alert(data);
     	        	 alert("文件上传成功");      	

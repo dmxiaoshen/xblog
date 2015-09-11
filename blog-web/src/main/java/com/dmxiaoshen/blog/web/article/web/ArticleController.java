@@ -79,7 +79,7 @@ public class ArticleController {
 	
 	@RequestMapping(value = "/fileUpload")
 	@ResponseBody
-	public Map<String,Object> uploadApk(
+	public String uploadApk(
 			@RequestParam(value = "reFile") MultipartFile reFile,
 			HttpServletRequest request, HttpServletResponse response) {
 		String originFileName = reFile.getOriginalFilename();
@@ -125,7 +125,7 @@ public class ArticleController {
 //		}
 		//resMap.put("msg", "success");
 		//return "success";
-		return resMap;
+		return "success";
 	}
 	
 	@RequestMapping(value = "/index")
